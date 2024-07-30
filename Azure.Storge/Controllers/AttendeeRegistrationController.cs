@@ -1,11 +1,12 @@
 ﻿using Azure.Storge.Data;
+using Azure.Storge.Models;
 using Azure.Storge.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Azure.Storge.Controllers
 {
-    public class AttendeeRegistrationController(ITableStorageService tableStorageService
-        /*IBlobStorageService blobStorageService, IQueueService queueService*/) : Controller
+    public class AttendeeRegistrationController(ITableStorageService tableStorageService,
+        IBlobStorageService blobStorageService, IQueueService queueService) : Controller
     {
         public async Task<ActionResult> Index()
         {

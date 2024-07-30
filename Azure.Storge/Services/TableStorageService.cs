@@ -1,27 +1,36 @@
-﻿using Azure.Storge.Data;
+﻿using Azure.Data.Tables;
+using Azure.Storge.Data;
 
 namespace Azure.Storge.Services
 {
-    public class TableStorageService : ITableStorageService
+    public class TableStorageService(IConfiguration configuration, TableServiceClient tableService, TableClient tableClient) : ITableStorageService
     {
-        public Task DeleteAttendee(string industry, string id)
+        private const string tableName = "Attendees";
+        public async Task DeleteAttendee(string industry, string id)
         {
-            throw new NotImplementedException();
+            await tableClient.DeleteEntityAsync(industry, id);
         }
 
-        public Task<AttendeeEntity> GetAttendee(string industry, string id)
+        public async Task<AttendeeEntity> GetAttendee(string industry, string id)
         {
-            throw new NotImplementedException();
+            return await tableClient.GetEntityAsync<AttendeeEntity>(industry, id);
         }
 
-        public Task<List<AttendeeEntity>> GetAttendees()
+        public async Task<List<AttendeeEntity>> GetAttendees()
         {
-            throw new NotImplementedException();
+            return tableClient.Query<AttendeeEntity>().ToList();
         }
 
-        public Task UpsertAttendee(AttendeeEntity attendeeEntity)
+        public async Task UpsertAttendee(AttendeeEntity attendeeEntity)
         {
-            throw new NotImplementedException();
+            await tableClient.UpsertEntityAsync(attendeeEntity);
+        }
+        private async Task<TableClient> GetTableClient()
+        {
+            var tableClient = tableService.GetTableClient(tableName);
+            await tableClient.CreateIfNotExistsAsync();
+
+            return tableClient;
         }
     }
 }

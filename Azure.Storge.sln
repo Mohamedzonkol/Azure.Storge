@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.10.35013.160
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Azure.Storge", "Azure.Storge\Azure.Storge.csproj", "{A456D2D5-C307-49B7-A650-F63E0DB5AF6A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A456D2D5-C307-49B7-A650-F63E0DB5AF6A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A456D2D5-C307-49B7-A650-F63E0DB5AF6A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A456D2D5-C307-49B7-A650-F63E0DB5AF6A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A456D2D5-C307-49B7-A650-F63E0DB5AF6A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {09A0B220-2D58-41E9-A8EB-0C4B61A36D99}
+	EndGlobalSection
+EndGlobal

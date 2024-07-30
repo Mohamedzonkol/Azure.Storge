@@ -27,6 +27,7 @@ namespace Azure.Storge.Services
         }
         private async Task<TableClient> GetTableClient()
         {
+            var service = new TableServiceClient(configuration["ConnectionString"]);
             var tableClient = tableService.GetTableClient(tableName);
             await tableClient.CreateIfNotExistsAsync();
 

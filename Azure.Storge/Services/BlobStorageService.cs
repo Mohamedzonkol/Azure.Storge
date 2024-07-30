@@ -55,7 +55,7 @@ namespace Azure.Storge.Services
         {
             try
             {
-                BlobContainerClient container = new BlobContainerClient(configuration["StorageConnectionString"], containerName);
+                BlobContainerClient container = new BlobContainerClient(configuration["ConnectionString"], containerName);
                 await container.CreateIfNotExistsAsync();
 
                 return container;

@@ -13,14 +13,14 @@ namespace Azure.Storge.Controllers
             var data = await tableStorageService.GetAttendees();
             foreach (var item in data)
             {
-                item.ImageName = await _blobStorageService.GetBlobUrl(item.ImageName);
+                item.ImageName = await blobStorageService.GetBlobUrl(item.ImageName);
             }
             return View(data);
         }
         public async Task<ActionResult> Details(string id, string industry)
         {
             var data = await tableStorageService.GetAttendee(industry, id);
-            data.ImageName = await _blobStorageService.GetBlobUrl(data.ImageName);
+            data.ImageName = await blobStorageService.GetBlobUrl(data.ImageName);
             return View(data);
         }
         public ActionResult Create()
@@ -43,7 +43,7 @@ namespace Azure.Storge.Controllers
                 if (formFile?.Length > 0)
                 {
                     attendeeEntity.ImageName =
-                        await _blobStorageService.UploadBlob(formFile, id);
+                        await blobStorageService.UploadBlob(formFile, id);
                 }
                 else
                 {
@@ -60,7 +60,7 @@ namespace Azure.Storge.Controllers
                     $"\n\r Thank you for registering for this event. " +
                     $"\n\r Your record has been saved for future reference. "
                 };
-                await _queueService.SendMessage(email);
+                await queueService.SendMessage(email);
 
 
                 return RedirectToAction(nameof(Index));
@@ -89,7 +89,7 @@ namespace Azure.Storge.Controllers
             {
                 if (formFile?.Length > 0)
                 {
-                    attendeeEntity.ImageName = await _blobStorageService.UploadBlob(formFile, attendeeEntity.RowKey, attendeeEntity.ImageName);
+                    attendeeEntity.ImageName = await blobStorageService.UploadBlob(formFile, attendeeEntity.RowKey, attendeeEntity.ImageName);
                 }
 
                 attendeeEntity.PartitionKey = attendeeEntity.Industry;
@@ -103,7 +103,7 @@ namespace Azure.Storge.Controllers
                     Message = $"Hello {attendeeEntity.FirstName} {attendeeEntity.LastName}," +
                     $"\n\r Your record was modified successfully"
                 };
-                await _queueService.SendMessage(email);
+                await queueService.SendMessage(email);
 
                 return RedirectToAction(nameof(Index));
             }
@@ -122,7 +122,7 @@ namespace Azure.Storge.Controllers
             {
                 var data = await tableStorageService.GetAttendee(industry, id);
                 await tableStorageService.DeleteAttendee(industry, id);
-                await _blobStorageService.RemoveBlob(data.ImageName);
+                await blobStorageService.RemoveBlob(data.ImageName);
 
                 var email = new EmailMessage
                 {
@@ -131,7 +131,7 @@ namespace Azure.Storge.Controllers
                     Message = $"Hello {data.FirstName} {data.LastName}," +
                     $"\n\r Your record was removed successfully"
                 };
-                await _queueService.SendMessage(email);
+                await queueService.SendMessage(email);
 
                 return RedirectToAction(nameof(Index));
             }
